@@ -1,24 +1,54 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import DefaultLayout from '../layout/default-layout.vue';
+import AuthContainer from '../views/auth/authContainer.vue';
+import Dashboard from '../views/dashboard/dashboard.vue';
+import Stock from '../views/stock/stockList.vue'
+import DispatchStock from '../views/stock/pushStock.vue'
+
 
 Vue.use(VueRouter);
+
 
 const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home
+    component: DefaultLayout,
+    redirect: "/dashboard",
+    children: [
+      {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: Dashboard
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    path: "/stock",
+    name: "Stock",
+    component: Stock
+      },
+  {
+    path: "/dispatch",
+    name: "DispatchStock",
+    component: DispatchStock
+      }, {
+    path: '/driver',
+    name: 'Driver',
+    component: () => import('../views/driver/driver'),
+  },
+  {
+    path: '/outstock',
+    name: 'OutStock',
+    component: () => import('../views/stock/Outstock'),
   }
+    ]
+  },
+  {
+    path: "/auth",
+    name: "Auth",
+    component: AuthContainer
+  },
+  
 ];
 
 const router = new VueRouter({
