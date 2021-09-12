@@ -70,6 +70,8 @@
         { text: 'Category', value: 'category' },
         { text: 'Quantity', value: 'quantity' },
         { text: 'Price Per Stock', value: 'price' },
+        { text: 'Driver\'s Name', value: 'driver.name' },
+        { text: 'Driver\'s Licence No.', value: 'driver.regNo' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       stocks: [],
@@ -78,13 +80,17 @@
         name: '',
         category: '',
         quantity: 0,
-        price: 0
+        price: 0,
+        driverName: '',
+        regNo: ''
       },
       defaultItem: {
         name: '',
         category: '',
         quantity: 0,
-        price: 0
+        price: 0,
+        driverName: '',
+        regNo: ''
       },
     }),
 
@@ -112,6 +118,7 @@
       initialize () {
         this.$http.get('http://localhost:8000/stocks/dispatch/out').then((response)=>{
         this.stocks = response.data
+        console.log(response.data,'resd')
       }).catch((error)=>{
         console.log(error)
 
